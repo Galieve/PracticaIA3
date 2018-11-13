@@ -11,9 +11,11 @@ import aima.core.search.agent.SearchAgent;
 import aima.core.search.framework.Node;
 import aima.core.search.framework.SearchForActions;
 import aima.core.search.framework.qsearch.GraphSearch;
+import aima.core.search.framework.qsearch.GraphSearchBFS;
 import aima.core.search.informed.AStarSearch;
 import aima.core.search.informed.BestFirstSearch;
 import aima.core.search.informed.GreedyBestFirstSearch;
+import aima.core.search.uninformed.BreadthFirstSearch;
 import aima.core.search.uninformed.DepthFirstSearch;
 import aima.core.search.uninformed.DepthLimitedSearch;
 import aima.core.search.uninformed.UniformCostSearch;
@@ -41,6 +43,7 @@ public class DemoClass {
 	private static void demoCoche()    {
 		depthLimitedFirstDemo(7);
 		depthFirstDemo();
+		bfsDemo();
 		uniformCostDemo();
 		bestFirstSearchDemo(new HeuristicaDistanciaUno());
 		bestFirstSearchDemo(new HeuristicaCochesBloqueadores());
@@ -76,6 +79,24 @@ public class DemoClass {
 		{
 			ProblemaCoche problema=new ProblemaCoche(estadoInicial);
 			SearchForActions<EstadoCoche, MueveCoche> search = new DepthFirstSearch<>(new GraphSearch<>());
+			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
+
+			printActions(agent.getActions());
+			printInstrumentation(agent.getInstrumentation());
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void  bfsDemo()
+	{
+		System.out.println("\nCocheBFSDemo--->");
+		try
+		{
+			ProblemaCoche problema=new ProblemaCoche(estadoInicial);
+			SearchForActions<EstadoCoche, MueveCoche> search = new BreadthFirstSearch<>(new GraphSearchBFS<>());
 			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
 
 			printActions(agent.getActions());
