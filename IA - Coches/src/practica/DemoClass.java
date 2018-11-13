@@ -24,7 +24,7 @@ import practica.coche.CocheVertical;
 import practica.coche.EstadoCoche;
 import practica.coche.MueveCoche;
 import practica.coche.ProblemaCoche;
-import practica.heuristica.HeuristicaCochesTaponando;
+import practica.heuristica.HeuristicaCochesBloqueadores;
 import practica.heuristica.HeuristicaDistanciaUno;
 
 public class DemoClass {
@@ -43,11 +43,11 @@ public class DemoClass {
 		depthFirstDemo();
 		uniformCostDemo();
 		bestFirstSearchDemo(new HeuristicaDistanciaUno());
-		bestFirstSearchDemo(new HeuristicaCochesTaponando());
+		bestFirstSearchDemo(new HeuristicaCochesBloqueadores());
 		greedySearchDemo(new HeuristicaDistanciaUno());
-		greedySearchDemo(new HeuristicaCochesTaponando());
+		greedySearchDemo(new HeuristicaCochesBloqueadores());
 		aStarDemo(new HeuristicaDistanciaUno());
-		aStarDemo(new HeuristicaCochesTaponando());
+		aStarDemo(new HeuristicaCochesBloqueadores());
 
 	}
 

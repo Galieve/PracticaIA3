@@ -8,7 +8,7 @@ import practica.coche.EstadoCoche;
 import practica.coche.MueveCoche;
 import aima.core.search.framework.Node;
 
-public class HeuristicaCochesTaponando implements ToDoubleFunction
+public class HeuristicaCochesBloqueadores implements ToDoubleFunction
 <Node<EstadoCoche,MueveCoche>>{
 
 
@@ -108,7 +108,7 @@ public class HeuristicaCochesTaponando implements ToDoubleFunction
 	
 	@Override
 	public String toString() {
-		return "HeuristicaCochesTaponando";
+		return "HeuristicaCochesBloqueadores";
 	}
 
 
