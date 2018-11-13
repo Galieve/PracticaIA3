@@ -105,7 +105,11 @@ public class HeuristicaCochesTaponando implements ToDoubleFunction
 				
 		}
 	}
-
+	
+	@Override
+	public String toString() {
+		return "HeuristicaCochesTaponando";
+	}
 
 
 	@Override

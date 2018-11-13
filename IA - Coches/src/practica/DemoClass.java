@@ -30,7 +30,6 @@ import practica.heuristica.HeuristicaDistanciaUno;
 public class DemoClass {
 
     static EstadoCoche estadoInicial = new EstadoCoche();
-    static EstadoCoche EstadoJuguete = new EstadoCoche();
 
     
     
@@ -40,7 +39,7 @@ public class DemoClass {
     }
 
     private static void demoCoche()    {
-        depthLimitedFirstDemo();
+        depthLimitedFirstDemo(7);
         depthFirstDemo();
         uniformCostDemo();
         bestFirstSearchDemo(new HeuristicaDistanciaUno());
@@ -52,13 +51,13 @@ public class DemoClass {
 
     }
 
-    private static void  depthLimitedFirstDemo()
+    private static void  depthLimitedFirstDemo(int profundidad)
     {
-        System.out.println("\nCocheDLFS(10)Demo--->");
+        System.out.println("\nCocheDLFS" +profundidad+ "Demo--->");
         try
         {
         	ProblemaCoche problema=new ProblemaCoche(estadoInicial);
-        	SearchForActions<EstadoCoche, MueveCoche> search = new DepthLimitedSearch<>(10);
+        	SearchForActions<EstadoCoche, MueveCoche> search = new DepthLimitedSearch<>(profundidad);
         	SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
 
             printActions(agent.getActions());
@@ -179,66 +178,13 @@ public class DemoClass {
     	Coche coche6 = new CocheVertical(new Pair<Integer,Integer>(2,1), new Pair<Integer,Integer>(4,3),5);
     	Coche coche7 = new CocheHorizontal(new Pair<Integer,Integer>(1,2), new Pair<Integer,Integer>(4,4),6);
     	Coche coche8 = new CocheVertical(new Pair<Integer,Integer>(3,1), new Pair<Integer,Integer>(0,5),9);
-    	
-    	Coche cP=new CocheHorizontal(new Pair<Integer,Integer>(1,1), new Pair<Integer,Integer>(1,1),0);
-    	Coche cP2=new CocheVertical(new Pair<Integer,Integer>(1,1), new Pair<Integer,Integer>(1,2),5);
+    
     	coche1.setObjetivo(true);
-    	cP.setObjetivo(true);
-    	//lista.add(cP);
     	HashSet<Pair<Integer,Integer>> puertas=new HashSet<>();
-    	puertas.add(new Pair<Integer,Integer>(1,6));
+    	puertas.add(new Pair<Integer,Integer>(2,6));
     	estadoInicial=new EstadoCoche(6,6,puertas,
     			coche1,coche2,coche3,coche4,coche5,coche6,coche8,coche7);
-    	EstadoJuguete=new EstadoCoche(6,6,puertas,
-    			cP,cP2);
     }
-/*
-    private static void depthLimitedFirstDemo()
-    {
-        System.out.println("\nMisionerosDLFSDEMO--->");
-        try
-        {
-            Problem problem
-                    = new Problem(estadoInicial,MisionerosFunctionFactory.getAtionsFunction(),
-                    MisionerosFunctionFactory.getResultFunction(),new MisionerosGoalTest(),
-                    new MisionerosStepCostFunction());
-
-            Search search = new DepthLimitedSearch(10);
-            SearchAgent agent = new SearchAgent(problem,search);
-
-            printActions(agent.getActions());
-            printInstrumentation(agent.getInstrumentation());
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    private static void iterativeDeepeningDemo()
-    {
-        System.out.println("\nMisionerosIDDemo--->");
-        try
-        {
-            Problem problem
-                    = new Problem(estadoInicial,MisionerosFunctionFactory.getAtionsFunction(),
-                    MisionerosFunctionFactory.getResultFunction(),new MisionerosGoalTest(),
-                    new MisionerosStepCostFunction());
-
-            Search search = new IterativeDeepeningSearch();
-            SearchAgent agent = new SearchAgent(problem,search);
-
-            printActions(agent.getActions());
-            printInstrumentation(agent.getInstrumentation());
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-*/
     private static void printInstrumentation(Properties properties) {
         Iterator<Object> keys = properties.keySet().iterator();
         while (keys.hasNext()) {
