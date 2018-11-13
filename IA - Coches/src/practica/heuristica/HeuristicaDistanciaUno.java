@@ -37,4 +37,11 @@ public class HeuristicaDistanciaUno implements ToDoubleFunction<Node<EstadoCoche
 		return getHeur(value.getState());
 	}
 
+	@Override
+	public String toString() {
+		return "HeuristicaDistanciaUno";
+	}
+	
+	
+
 }
