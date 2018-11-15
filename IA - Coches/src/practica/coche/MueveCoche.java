@@ -40,8 +40,5 @@ public class MueveCoche extends DynamicAction {
 		return accion + " : " + this.getAttribute(accion).toString();
 	}
 	
-	/* (non-Javadoc)
-	 * @see aima.core.agent.Action#isNoOp()
-	 */
 
 }

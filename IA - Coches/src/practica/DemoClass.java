@@ -45,8 +45,6 @@ public class DemoClass {
 		depthFirstDemo();
 		bfsDemo();
 		uniformCostDemo();
-		bestFirstSearchDemo(new HeuristicaDistanciaUno());
-		bestFirstSearchDemo(new HeuristicaCochesBloqueadores());
 		greedySearchDemo(new HeuristicaDistanciaUno());
 		greedySearchDemo(new HeuristicaCochesBloqueadores());
 		aStarDemo(new HeuristicaDistanciaUno());
@@ -117,26 +115,6 @@ public class DemoClass {
 			ProblemaCoche problema=new ProblemaCoche(estadoInicial);
 			SearchForActions<EstadoCoche, MueveCoche> search = new UniformCostSearch<>(
 					new GraphSearch<>());
-			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
-
-			printActions(agent.getActions());
-			printInstrumentation(agent.getInstrumentation());
-
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void bestFirstSearchDemo
-	(ToDoubleFunction<Node<EstadoCoche, MueveCoche>> heuristica)
-	{
-		System.out.println("\nCocheBestFirstSearch "+heuristica.toString()+" Demo--->");
-		try
-		{
-			ProblemaCoche problema=new ProblemaCoche(estadoInicial);
-			SearchForActions<EstadoCoche, MueveCoche> search = new BestFirstSearch<>(
-					new GraphSearch<>(),heuristica);
 			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
 
 			printActions(agent.getActions());

@@ -122,12 +122,16 @@ public abstract class Coche {
 		pos = new Pair<>(0,0);
 	}
 	public Coche(Pair<Integer,Integer>t, Pair<Integer,Integer> p, Integer i) {
+		if(t.getKey() < 0 || t.getValue() < 0) 
+			throw new IllegalArgumentException("No se puede crear un coche de tamaño negativo");
 		tam = t;
 		pos = p;
 		id=i;
 	}
 
 	public Coche(Pair<Integer,Integer>t, Pair<Integer,Integer> p, boolean rojo) {
+		if(t.getKey() < 0 || t.getValue() < 0) 
+			throw new IllegalArgumentException("No se puede crear un coche de tamaño negativo");
 		tam = t;
 		pos = p;
 		objetivo=rojo;

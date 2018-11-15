@@ -92,7 +92,7 @@ public class HeuristicaCochesBloqueadores implements ToDoubleFunction
 		if(estado.getListaPuertas().size()>1)return 0;
 		Pair<Integer,Integer> puerta=estado.getListaPuertas().iterator().next();
 		Coche objetivo=estado.getObjetivo();
-		if(puerta.getKey()==objetivo.getPos().getKey()){//Suponemos horizontal TODO Memoria
+		if(puerta.getKey()==objetivo.getPos().getKey()){//Suponemos horizontal
 			
 			return recorridoHorizontal(estado,objetivo,puerta,
 					objetivo.getPos().getValue()>puerta.getValue());

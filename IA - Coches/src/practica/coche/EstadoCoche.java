@@ -68,11 +68,11 @@ public class EstadoCoche {
 	private void ponerCoche(Coche coche) {
 		for(Integer i=coche.getPos().getKey();i<coche.getPos().getKey()+coche.getTam().getKey();i++) {
 			for(Integer j=coche.getPos().getValue();j<coche.getPos().getValue()+coche.getTam().getValue();j++) {
-				if(!libre(i,j)) throw new IllegalArgumentException("Coches" + tablero[i][j] +
-						" y "+ coche.getId() + 
-						" colisionando en la casilla:"
-						+ "["+ i+ "]["+j+"]");			
-				tablero[i][j]=coche.getId();
+				if(!libre(i,j)) {
+					throw new IllegalArgumentException("No se puede colocar el coche "+ coche.getId()+" en la casilla ["+i+"]["+j+"]");		
+					
+				}
+				tablero[i][j]=coche.getId();	
 			}
 		}
 	}
@@ -136,14 +136,6 @@ public class EstadoCoche {
 		Pair<Integer,Integer> p = idACoche.get(accion.getMatricula()).getPos();
 		idACoche.get(accion.getMatricula()).setPos(mover(accion.getSentido(), p));
 		actualizar(accion.getSentido(),idACoche.get(accion.getMatricula()));
-		/*for(Integer[] c: tablero) {
-			for(Integer d: c) {
-				if(d.equals(-1))System.out.print(d);
-				else System.out.print(" "+d);
-			}
-			System.out.print("\n");
-		}
-		System.out.print("\n-----\n");*/
 	}
 
 	private void addValid(Pair<Integer, Integer> puerta) {
