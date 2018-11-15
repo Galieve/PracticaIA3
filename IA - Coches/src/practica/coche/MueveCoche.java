@@ -11,10 +11,6 @@ import aima.core.agent.impl.DynamicAction;
  *
  */
 public class MueveCoche extends DynamicAction {
-
-	/**
-	 * 
-	 */
 	
 	private static final String accion="Acción";
 	

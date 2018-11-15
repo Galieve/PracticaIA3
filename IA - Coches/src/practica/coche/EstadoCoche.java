@@ -7,33 +7,31 @@ import javafx.util.Pair;
 
 public class EstadoCoche {
 
-	//private List<Coche> listaCoches;
-
 	private HashMap<Integer, Coche> idACoche;
-	
+
 	private Integer cocheObjetivo;
-	
+
 	private Integer tablero[][];
-	
+
 	private Set<Pair<Integer, Integer>> listaPuertas;
 
 	public int getFilas(){
 		return tablero.length;
 	}
-	
-	
+
+
 	public int getColumnas(){
 		return tablero[0].length;	
 	}
-	
+
 	public Coche getObjetivo(){
 		return idACoche.get(cocheObjetivo);
 	}
-	
+
 	public Set<Pair<Integer,Integer>> getListaPuertas(){
 		return listaPuertas;
 	}
-	
+
 	private void rellenarTableroVacio() {
 		for(int i=0;i<tablero.length;i++) {
 			for(int j=0;j<tablero[0].length;j++) {
@@ -41,68 +39,61 @@ public class EstadoCoche {
 			}
 		}
 	}
-    
-    private void añadir(Coche...c)throws IllegalArgumentException{
-    	boolean encontrado=false;
-    	for(Coche cprima:c){
-    		if(cprima.isObjetivo()&&encontrado){
-    			throw new IllegalArgumentException("Se ha puesto más de un coche objetivo");
-    		}
-    		else {
-    			encontrado=cprima.isObjetivo() || encontrado;
-    			idACoche.put(cprima.getId(), cprima);
-    			if(cprima.isObjetivo())cocheObjetivo=cprima.getId();
-    		}
-    	}
-    	if(!encontrado){
+
+	private void añadir(Coche...c)throws IllegalArgumentException{
+		boolean encontrado=false;
+		for(Coche cprima:c){
+			if(cprima.isObjetivo() && encontrado){
+				throw new IllegalArgumentException("Se ha puesto más de un coche objetivo");
+			}
+			else {
+				encontrado=cprima.isObjetivo() || encontrado;
+				idACoche.put(cprima.getId(), cprima);
+				if(cprima.isObjetivo())cocheObjetivo=cprima.getId();
+			}
+		}
+		if(!encontrado){
 			throw new IllegalArgumentException("No se ha añadido ningún coche objetivo");
-    	}
-    }
-	
+		}
+	}
+
 	private void rellenarTableroConCoches() {
 		for(Integer i : idACoche.keySet()) {
 			ponerCoche(idACoche.get(i));
 		}
 	}
-	
+
 	private void ponerCoche(Coche coche) {
 		for(Integer i=coche.getPos().getKey();i<coche.getPos().getKey()+coche.getTam().getKey();i++) {
 			for(Integer j=coche.getPos().getValue();j<coche.getPos().getValue()+coche.getTam().getValue();j++) {
 				if(!libre(i,j)) {
 					throw new IllegalArgumentException("No se puede colocar el coche "+ coche.getId()+" en la casilla ["+i+"]["+j+"]");		
-					
+
 				}
 				tablero[i][j]=coche.getId();	
 			}
 		}
 	}
-	
+
 	//Posi = posicion adyacente a la puerta
 	public boolean puertaAlcanzada(Pair<Integer,Integer> posi) {
 		return tablero[posi.getKey()][posi.getValue()] != -1 &&
 				idACoche.get(tablero[posi.getKey()][posi.getValue()]).isObjetivo();
-		}
-	
-	//NOTA: NO USAR PORQUE NO HAY PUERTAS 
-	public EstadoCoche() {
-		tablero=new Integer[10][10];
-		rellenarTableroVacio();
-		listaPuertas = new HashSet<>();
-		idACoche = new HashMap<>();
 	}
+
 	public EstadoCoche(Integer dimx, Integer dimy, Set<Pair<Integer, Integer>> puertas, Coche...coches) {
 		tablero=new Integer[dimx][dimy];
-		
+
 		rellenarTableroVacio();
 		listaPuertas = new HashSet<>();
 		idACoche=new HashMap<Integer,Coche>();
 		this.añadir(coches);
-		
+
 		rellenarTableroConCoches();
 		for(Pair<Integer, Integer> puerta: puertas) {
 			addValid(puerta);
 		}
-		
+
 	}
 
 	public EstadoCoche(EstadoCoche copia) {
@@ -153,7 +144,7 @@ public class EstadoCoche {
 		}
 		else {
 			throw new IllegalArgumentException("No se puede colocar una puerta en " + 
-		"["+puerta.getKey() + "]["+ puerta.getValue() +"]");
+					"["+puerta.getKey() + "]["+ puerta.getValue() +"]");
 		}
 	}
 
@@ -165,12 +156,11 @@ public class EstadoCoche {
 		case "Abajo":return new Pair<Integer,Integer>(pos.getKey()+1,pos.getValue());
 		default: 
 			return null;
-			
 		}
 
 	}
 
-	//Coche Actualizado
+	//Se debe llamar con un coche actualizado
 	private void actualizar(String mov, Coche c) {
 		switch (mov) {
 		case "Izquierda":
@@ -204,7 +194,7 @@ public class EstadoCoche {
 		default: break;
 		}
 	}	
-	
+
 	public boolean isGoal() {
 		for(Coche coche: idACoche.values()) {
 			if(coche.puedeSalir(listaPuertas)) return true;
@@ -250,5 +240,5 @@ public class EstadoCoche {
 	public HashMap<Integer, Coche> getIdACoche() {
 		return idACoche;
 	}
-	
+
 }

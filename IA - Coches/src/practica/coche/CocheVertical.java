@@ -12,7 +12,7 @@ public class CocheVertical extends Coche {
 	 * 
 	 */
 	
-	public CocheVertical() {}
+	protected CocheVertical() {}
 
 	/**
 	 * @param t
@@ -46,7 +46,7 @@ public class CocheVertical extends Coche {
 	
 	@Override
 	protected boolean abstractPuedeSalir(Set<Pair<Integer, Integer>> lista) {
-		//ARRIBA
+		//Arriba
 		boolean salir = true;
 		for(int j=pos.getValue(); salir && j< pos.getValue()+tam.getValue(); ++j) {
 			if(!lista.contains(new Pair<>(pos.getKey()-1,j))) {

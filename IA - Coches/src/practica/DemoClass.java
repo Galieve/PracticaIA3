@@ -13,7 +13,6 @@ import aima.core.search.framework.SearchForActions;
 import aima.core.search.framework.qsearch.GraphSearch;
 import aima.core.search.framework.qsearch.GraphSearchBFS;
 import aima.core.search.informed.AStarSearch;
-import aima.core.search.informed.BestFirstSearch;
 import aima.core.search.informed.GreedyBestFirstSearch;
 import aima.core.search.uninformed.BreadthFirstSearch;
 import aima.core.search.uninformed.DepthFirstSearch;
@@ -31,7 +30,7 @@ import practica.heuristica.HeuristicaDistanciaUno;
 
 public class DemoClass {
 
-	static EstadoCoche estadoInicial = new EstadoCoche();
+	static EstadoCoche estadoInicial = null;
 
 
 
@@ -52,18 +51,26 @@ public class DemoClass {
 
 	}
 
-	private static void  depthLimitedFirstDemo(int profundidad)
-	{
-		System.out.println("\nCocheDLFS" +profundidad+ "Demo--->");
+	private static void demo(SearchForActions<EstadoCoche, MueveCoche> search, String mensaje) {
 		try
-		{
+		{	
+			System.out.println(mensaje);
 			ProblemaCoche problema = new ProblemaCoche(estadoInicial);
-			SearchForActions<EstadoCoche, MueveCoche> search = new DepthLimitedSearch<>(profundidad);
 			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
 
 			printActions(agent.getActions());
 			printInstrumentation(agent.getInstrumentation());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 
+	}
+
+	private static void  depthLimitedFirstDemo(int profundidad)
+	{
+		try
+		{
+			demo(new DepthLimitedSearch<>(profundidad),"\nCocheDLFS (" +profundidad+ ") Demo--->");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -72,33 +79,22 @@ public class DemoClass {
 
 	private static void  depthFirstDemo()
 	{
-		System.out.println("\nCocheDFSDemo--->");
 		try
 		{
-			ProblemaCoche problema=new ProblemaCoche(estadoInicial);
-			SearchForActions<EstadoCoche, MueveCoche> search = new DepthFirstSearch<>(new GraphSearch<>());
-			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
-
-			printActions(agent.getActions());
-			printInstrumentation(agent.getInstrumentation());
+			demo(new DepthFirstSearch<>(new GraphSearch<>()),"\nCocheDFSDemo--->");
 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void  bfsDemo()
 	{
-		System.out.println("\nCocheBFSDemo--->");
+		
 		try
 		{
-			ProblemaCoche problema=new ProblemaCoche(estadoInicial);
-			SearchForActions<EstadoCoche, MueveCoche> search = new BreadthFirstSearch<>(new GraphSearchBFS<>());
-			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
-
-			printActions(agent.getActions());
-			printInstrumentation(agent.getInstrumentation());
+			demo(new BreadthFirstSearch<>(new GraphSearchBFS<>()),"\nCocheBFSDemo--->");
 
 		}
 		catch (Exception e) {
@@ -109,16 +105,10 @@ public class DemoClass {
 
 	private static void uniformCostDemo()
 	{
-		System.out.println("\nCocheUniformCostDemo--->");
 		try
 		{
-			ProblemaCoche problema=new ProblemaCoche(estadoInicial);
-			SearchForActions<EstadoCoche, MueveCoche> search = new UniformCostSearch<>(
-					new GraphSearch<>());
-			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
-
-			printActions(agent.getActions());
-			printInstrumentation(agent.getInstrumentation());
+			demo(new UniformCostSearch<>(
+					new GraphSearch<>()),"\nCocheUniformCostDemo--->");
 
 		}
 		catch (Exception e) {
@@ -130,16 +120,10 @@ public class DemoClass {
 	private static void greedySearchDemo
 	(ToDoubleFunction<Node<EstadoCoche, MueveCoche>> heuristica)
 	{
-		System.out.println("\nCoche GreedySearch "+heuristica.toString()+" Demo--->");
 		try
 		{
-			ProblemaCoche problema=new ProblemaCoche(estadoInicial);
-			SearchForActions<EstadoCoche, MueveCoche> search = new GreedyBestFirstSearch<>(
-					new GraphSearch<>(),heuristica);
-			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
-
-			printActions(agent.getActions());
-			printInstrumentation(agent.getInstrumentation());
+			demo(new GreedyBestFirstSearch<>(
+					new GraphSearch<>(),heuristica),"\nCoche GreedySearch "+heuristica.toString()+" Demo--->");
 
 		}
 		catch (Exception e) {
@@ -150,16 +134,9 @@ public class DemoClass {
 	private static void  aStarDemo
 	(ToDoubleFunction<Node<EstadoCoche, MueveCoche>> heuristica)
 	{
-		System.out.println("\nCoche AStar "+heuristica.toString()+" Demo--->");
 		try
 		{
-			ProblemaCoche problema=new ProblemaCoche(estadoInicial);
-			SearchForActions<EstadoCoche, MueveCoche> search = 
-					new AStarSearch<>(new GraphSearch<>(),heuristica);
-			SearchAgent<EstadoCoche, MueveCoche> agent = new SearchAgent<>(problema,search);
-
-			printActions(agent.getActions());
-			printInstrumentation(agent.getInstrumentation());
+			demo(new AStarSearch<>(new GraphSearch<>(),heuristica),"\nCoche AStar "+heuristica.toString()+" Demo--->");
 
 		}
 		catch (Exception e) {
@@ -169,14 +146,14 @@ public class DemoClass {
 
 	private static void initializeState() {
 
-		Coche coche1 = new CocheHorizontal(new Pair<Integer,Integer>(1,2), new Pair<Integer,Integer>(2,2),0);
-		Coche coche2 = new CocheHorizontal(new Pair<Integer,Integer>(1,2), new Pair<Integer,Integer>(1,2),1);
-		Coche coche3 = new CocheVertical(new Pair<Integer,Integer>(2,1), new Pair<Integer,Integer>(0,4),2);
-		Coche coche4 = new CocheVertical(new Pair<Integer,Integer>(2,1), new Pair<Integer,Integer>(2,4),3);
-		Coche coche5 = new CocheVertical(new Pair<Integer,Integer>(3,1), new Pair<Integer,Integer>(3,2),4);
-		Coche coche6 = new CocheVertical(new Pair<Integer,Integer>(2,1), new Pair<Integer,Integer>(4,3),5);
-		Coche coche7 = new CocheHorizontal(new Pair<Integer,Integer>(1,2), new Pair<Integer,Integer>(4,4),6);
-		Coche coche8 = new CocheVertical(new Pair<Integer,Integer>(3,1), new Pair<Integer,Integer>(0,5),9);
+		Coche coche1 = new CocheHorizontal(new Pair<Integer,Integer>(1,2), new Pair<Integer,Integer>(2,2),1);
+		Coche coche2 = new CocheHorizontal(new Pair<Integer,Integer>(1,2), new Pair<Integer,Integer>(1,2),2);
+		Coche coche3 = new CocheVertical(new Pair<Integer,Integer>(2,1), new Pair<Integer,Integer>(0,4),3);
+		Coche coche4 = new CocheVertical(new Pair<Integer,Integer>(2,1), new Pair<Integer,Integer>(2,4),4);
+		Coche coche5 = new CocheVertical(new Pair<Integer,Integer>(3,1), new Pair<Integer,Integer>(3,2),5);
+		Coche coche6 = new CocheVertical(new Pair<Integer,Integer>(2,1), new Pair<Integer,Integer>(4,3),6);
+		Coche coche7 = new CocheHorizontal(new Pair<Integer,Integer>(1,2), new Pair<Integer,Integer>(4,4),7);
+		Coche coche8 = new CocheVertical(new Pair<Integer,Integer>(3,1), new Pair<Integer,Integer>(0,5),8);
 
 		coche1.setObjetivo(true);
 		HashSet<Pair<Integer,Integer>> puertas=new HashSet<>();

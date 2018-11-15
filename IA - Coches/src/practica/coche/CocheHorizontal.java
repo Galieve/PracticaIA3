@@ -18,7 +18,7 @@ public class CocheHorizontal extends Coche {
 	/**
 	 * 
 	 */
-	public CocheHorizontal() {	}
+	protected CocheHorizontal() {	}
 
 	/**
 	 * @param t
@@ -52,7 +52,7 @@ public class CocheHorizontal extends Coche {
 
 	@Override
 	protected boolean abstractPuedeSalir(Set<Pair<Integer, Integer>> lista) {
-		//IZQUIERDA
+		//Izquierda
 		boolean salir = true;
 		for(int i=pos.getKey(); salir && i< pos.getKey()+tam.getKey(); ++i) {
 			if(!lista.contains(new Pair<>(i,pos.getValue()-1))) {
