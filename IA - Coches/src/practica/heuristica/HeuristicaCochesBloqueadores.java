@@ -18,7 +18,7 @@ public class HeuristicaCochesBloqueadores implements ToDoubleFunction
 		double valor=0;
 		int i=puerta.getKey();
 		if(izquierda){
-			for(int j=objetivo.getPos().getValue()-1;j>=0;){//Puerta a la izquierda
+			for(int j=objetivo.getPos().getValue()-1;j>=0;){//La puerta está a la izquierda
 				if(tablero[i][j]==-1){
 					valor++;
 					j--;
@@ -33,7 +33,7 @@ public class HeuristicaCochesBloqueadores implements ToDoubleFunction
 			}	
 		}
 		else{
-			for(int j=objetivo.getPos().getValue()+objetivo.getTam().getValue();j<puerta.getValue();){//Puerta a la derecha
+			for(int j=objetivo.getPos().getValue()+objetivo.getTam().getValue();j<puerta.getValue();){//La puerta está a la derecha
 				if(tablero[i][j]==-1){
 					valor++;
 					j++;
@@ -55,7 +55,7 @@ public class HeuristicaCochesBloqueadores implements ToDoubleFunction
 		double valor=0;
 		int j=puerta.getValue();
 		if(arriba){
-			for(int i=objetivo.getPos().getKey()-1;i>=0;){//Puerta arriba
+			for(int i=objetivo.getPos().getKey()-1;i>=0;){//La puerta está arriba
 				if(tablero[i][j]==-1){
 					valor++;
 					i--;
@@ -70,7 +70,7 @@ public class HeuristicaCochesBloqueadores implements ToDoubleFunction
 			}	
 		}
 		else{
-			for(int i=objetivo.getPos().getKey()+objetivo.getTam().getKey();i<puerta.getKey();){//Puerta abajo
+			for(int i=objetivo.getPos().getKey()+objetivo.getTam().getKey();i<puerta.getKey();){//La puerta está abajo
 				if(tablero[i][j]==-1){
 					valor++;
 					i++;
@@ -92,13 +92,13 @@ public class HeuristicaCochesBloqueadores implements ToDoubleFunction
 		if(estado.getListaPuertas().size()>1)return 0;
 		Pair<Integer,Integer> puerta=estado.getListaPuertas().iterator().next();
 		Coche objetivo=estado.getObjetivo();
-		if(puerta.getKey()==objetivo.getPos().getKey()){//Suponemos horizontal
+		if(puerta.getKey()==objetivo.getPos().getKey()){//El coche es horizontal
 			
 			return recorridoHorizontal(estado,objetivo,puerta,
 					objetivo.getPos().getValue()>puerta.getValue());
 			
 		}
-		else{//Suponemos vertical
+		else{//Es vertical
 				
 			return recorridoVertical(estado,objetivo,puerta,
 					objetivo.getPos().getKey()>puerta.getKey());

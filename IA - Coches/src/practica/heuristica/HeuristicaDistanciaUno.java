@@ -14,17 +14,17 @@ public class HeuristicaDistanciaUno implements ToDoubleFunction<Node<EstadoCoche
 		if(estado.getListaPuertas().size()>1)return 0;
 		Pair<Integer,Integer> puerta=estado.getListaPuertas().iterator().next();
 		Coche objetivo=estado.getObjetivo();
-		if(puerta.getKey()==objetivo.getPos().getKey()){//Suponemos horizontal 
+		if(puerta.getKey()==objetivo.getPos().getKey()){//El coche es horizontal
 			
-			if(objetivo.getPos().getValue()>puerta.getValue()){//Esta a la izquierda la puerta
+			if(objetivo.getPos().getValue()>puerta.getValue()){//La puerta está a la izquierda
 				return objetivo.getPos().getValue();
 			}
-			else{//A la derecha
+			else{//Está a la derecha
 				return puerta.getValue()-objetivo.getPos().getValue()-objetivo.getTam().getValue();
 			}			
 		}
-		else{//Suponemos vertical
-			if(objetivo.getPos().getKey()>puerta.getKey()){//puerta arriba
+		else{//El coche es vertical
+			if(objetivo.getPos().getKey()>puerta.getKey()){//La puerta está arriba
 				return objetivo.getPos().getKey();
 			}else{
 				return puerta.getKey()-objetivo.getPos().getKey()-objetivo.getTam().getKey();

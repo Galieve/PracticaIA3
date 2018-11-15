@@ -1,6 +1,7 @@
 package practica.coche;
 
 public class CocheFactoryFunction {
+	//Factoría singleton ya que la interacción entre estados no depende del problema
 	private static CochesActionFunction _actionsFunction=null;
 	private static CocheResultFunction _resultsFunctions=null;
 	private static CocheGoalTest _goalTest=null;

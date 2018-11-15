@@ -59,7 +59,7 @@ public abstract class Coche {
 		return true;
 	}
 
-	protected Pair<Integer,Integer> tam; //Vert,Hori
+	protected Pair<Integer,Integer> tam; //Filas, Columnas
 	protected Pair<Integer,Integer> pos;
 	
 	protected Integer id = null;
